@@ -1,8 +1,19 @@
-var cheerio = require("cheerio");
+const fs = require("fs");
 
-module.exports = function scrapIndeed($, divs) {
+export function countTrim(count) {
+  const cTrim = count.trim().split(" ")[3];
+  return cTrim;
+}
+
+export function clearFile() {
+  return fs.writeFile("jobs.json", "", () => {
+    console.log("File deleted");
+  });
+}
+
+export function scrapIndeed($, divs) {
   let jobLists = [];
-  divs.each(async function(index, el) {
+  divs.each(function(index, el) {
     const object = {};
     object.title = $(this)
       .children(".jobtitle")
@@ -35,4 +46,4 @@ module.exports = function scrapIndeed($, divs) {
     jobLists.push(object);
   });
   return jobLists;
-};
+}
