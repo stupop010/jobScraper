@@ -1,10 +1,15 @@
 const fs = require("fs");
+//const Math = require('math')
 
 export function countTrim(count) {
   const cTrim = count.trim().split(" ")[3];
   return cTrim;
 }
 
+export function howManyPages(jobAmount) {
+  const pages = Math.ceil(138 / 15);
+  console.log(pages);
+}
 export function clearFile() {
   return fs.writeFile("jobs.json", "", () => {
     console.log("File deleted");
