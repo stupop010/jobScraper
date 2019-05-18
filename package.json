@@ -3,14 +3,27 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "nodemonConfig": {
+    "ignore": [
+      "search.json",
+      "data.json"
+    ]
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node server",
+    "server": "nodemon server",
+    "client": "npm start --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "axios": "^0.18.0",
     "cheerio": "^1.0.0-rc.2",
-    "puppeteer": "^1.12.2",
-    "request": "^2.88.0"
+    "concurrently": "^4.1.0",
+    "cors": "^2.8.5",
+    "cron": "^1.7.1",
+    "esm": "^3.2.20",
+    "express": "^4.16.4"
   }
 }
