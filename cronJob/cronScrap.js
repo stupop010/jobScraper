@@ -5,7 +5,7 @@ const fs = require("fs");
 new CronJob(
   "0 0 10/12 *  *",
   async () => {
-    const res = await indeedScrape();
+    await indeedScrape();
   },
   null,
   true,

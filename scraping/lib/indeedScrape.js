@@ -1,6 +1,10 @@
 const axios = require("axios");
 const cheerio = require("cheerio");
+const mongoose = require("mongoose");
 const fs = require("fs");
+
+const Job = mongoose.model("job");
+const User = mongoose.model("user");
 
 // Getting the search fields
 async function searchs() {
@@ -31,7 +35,7 @@ async function scrape(jobTitle = "web developer", location = "taunton") {
         .split(" ")[Number(3)];
     }
     const divs = $(".jobsearch-SerpJobCard");
-    divs.each(function(index, el) {
+    divs.each(async function(index, el) {
       if (jobLists.length === amountOfJobs) {
         return jobLists;
       }
@@ -71,14 +75,37 @@ async function scrape(jobTitle = "web developer", location = "taunton") {
   return jobLists;
 }
 
-async function scrapeData() {
-  const search = await searchs();
-  const data = await scrape(search.jobTitle, search.location);
+async function scrapeData(id) {
+  const user = await User.findById(id);
+  const data = await scrape();
+  const newdate = data.map(async item => {
+    const existingJob = await Job.findOne({ jobId: item.jobId });
+    if (existingJob) {
+      return;
+    }
+    try {
+      let job = new Job({
+        title: item.title,
+        company: item.company,
+        location: item.location,
+        salary: item.salary,
+        jobId: item.jobId,
+        link: item.link,
+        date: item.date,
+        summary: item.summary
+      });
+
+      await job.save();
+    } catch (error) {
+      console.error(error);
+      return new Error(error);
+    }
+  });
   return data;
 }
 
-async function indeedScrape() {
-  const data = await scrapeData();
+async function indeedScrape(id) {
+  const data = await scrapeData(id);
   const jsonData = JSON.stringify(data);
   fs.writeFileSync("data.json", jsonData);
   return "Scrape done";

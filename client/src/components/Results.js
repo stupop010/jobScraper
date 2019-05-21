@@ -21,7 +21,7 @@ const Results = () => {
     <div>
       <SearchForm />
       {data.map(item => {
-        return <ResultRender item={item} />;
+        return <ResultRender item={item} key={item.jobId} />;
       })}
     </div>
   );

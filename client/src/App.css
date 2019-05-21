@@ -45,7 +45,7 @@ a:hover {
 
 /* Results */
 .card {
-  padding: 1.5rem;
+  padding: 0.5rem;
   display: flex;
   flex-direction: column;
   border: solid 2px var(--dark-grey);
@@ -58,12 +58,12 @@ a:hover {
   border: 1px solid var(--dark-grey);
   border-radius: 7%;
   box-shadow: var(--box-shadow);
-  margin-top: 1rem;
+  margin-top: 0.5rem;
   display: flex;
 }
 
 .card div a {
-  padding: 0.5rem 1rem;
+  padding: 0.3rem 1rem;
 }
 
 .card div a:hover {
@@ -72,7 +72,7 @@ a:hover {
 }
 
 .card h1 {
-  font-size: 2.5rem;
+  font-size: 1.5rem;
   text-align: center;
 }
 
@@ -83,7 +83,7 @@ a:hover {
 
 @media (max-width: 950px) {
   .card h1 {
-    font-size: 2rem;
+    font-size: 1.5rem;
   }
 }
 @media (max-width: 700px) {
