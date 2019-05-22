@@ -13,7 +13,7 @@ app.use(cors());
 app.use(express.json({ extended: false }));
 
 app.use("/auth", require("./routes/api/auth"));
-app.use("/api", require("./routes/api.js"));
+app.use("/api", require("./routes/api/jobs"));
 
 connectDB();
 

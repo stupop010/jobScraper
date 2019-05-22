@@ -1,11 +1,6 @@
-const fs = require("fs");
-
-async function updateDate() {
-  const rawData = fs.readFileSync("data.json");
-  const data = JSON.parse(rawData);
-
+async function updateDate(jobs) {
   // Remove all empty date
-  const removeTheEmptyDate = data.filter(item => item.date !== "");
+  const removeTheEmptyDate = jobs.filter(item => item.date !== "");
   // Remove all dates under 20
   const removedDaysOver20 = removeTheEmptyDate.filter(
     item => item.date.split(" ")[Number(0)] <= 20

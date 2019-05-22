@@ -8,16 +8,14 @@ const UserSchema = new Schema({
     unique: true
   },
   password: String,
-  searchs: [
-    {
-      location: {
-        type: String
-      },
-      jobTitle: {
-        type: String
-      }
+  searchs: {
+    location: {
+      type: String
+    },
+    jobTitle: {
+      type: String
     }
-  ],
+  },
   registerDate: {
     type: Date,
     default: Date.now

@@ -1,16 +1,14 @@
 const axios = require("axios");
 const cheerio = require("cheerio");
 const mongoose = require("mongoose");
-const fs = require("fs");
 
 const Job = mongoose.model("job");
 const User = mongoose.model("user");
 
 // Getting the search fields
-async function searchs() {
-  const rawData = fs.readFileSync("search.json");
-  const data = JSON.parse(rawData);
-  return data;
+async function searchs(id) {
+  const user = await User.findById(id);
+  return user.searchs;
 }
 
 // Getting the html data
@@ -75,10 +73,10 @@ async function scrape(jobTitle = "web developer", location = "taunton") {
   return jobLists;
 }
 
-async function scrapeData(id) {
-  const user = await User.findById(id);
-  const data = await scrape();
-  const newdate = data.map(async item => {
+async function scrapeData(search) {
+  const { location, jobTitle } = search;
+  const data = await scrape(jobTitle, location);
+  data.map(async item => {
     const existingJob = await Job.findOne({ jobId: item.jobId });
     if (existingJob) {
       return;
@@ -104,10 +102,9 @@ async function scrapeData(id) {
   return data;
 }
 
-async function indeedScrape(id) {
-  const data = await scrapeData(id);
-  const jsonData = JSON.stringify(data);
-  fs.writeFileSync("data.json", jsonData);
+async function indeedScrape(id = "5ce47a148f424013b34ffe5d") {
+  const search = await searchs(id);
+  await scrapeData(search);
   return "Scrape done";
 }
 
