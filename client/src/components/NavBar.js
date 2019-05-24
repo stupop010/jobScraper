@@ -6,10 +6,23 @@ const NavBar = () => {
     <div className="main-nav">
       <ul>
         <li>
-          <Link />
+          <Link to="/">Home</Link>
         </li>
+        {auth()}
       </ul>
     </div>
+  );
+};
+
+const auth = isAuth => {
+  return (
+    <li>
+      {isAuth ? (
+        <Link to="/logout">LogOut</Link>
+      ) : (
+        <Link to="/login">Login</Link>
+      )}
+    </li>
   );
 };
 

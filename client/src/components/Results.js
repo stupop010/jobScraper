@@ -1,30 +1,42 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
+import React, { useEffect, useState, useReducer } from "react";
+import { connect } from "react-redux";
+
+import { getJobs, jobsLoading } from "../selectors/job";
+import { fetchJobs } from "../action/jobs";
 import ResultRender from "./ResultRender";
 import SearchForm from "./SearchForm";
+import Loading from "./Loading";
 
-function useSearches() {
-  const [data, setData] = useState([]);
+const useSearches = ({ fetchJobs }) => {
   useEffect(() => {
-    const fetchData = async () => {
-      const results = await axios("/api");
-      setData(results.data);
-    };
-    fetchData();
-  }, []);
-  return { data };
-}
+    fetchJobs();
+  }, [fetchJobs]);
+};
 
-const Results = () => {
-  const { data } = useSearches();
+const Results = props => {
+  useSearches(props);
   return (
     <div>
       <SearchForm />
-      {data.map(item => {
-        return <ResultRender item={item} key={item.jobId} />;
-      })}
+      {props.loading ? (
+        <Loading />
+      ) : (
+        props.job.map(item => {
+          return <ResultRender item={item} key={item.jobId} />;
+        })
+      )}
     </div>
   );
 };
 
-export default Results;
+const mapStateToProps = state => {
+  return {
+    job: getJobs(state),
+    loading: jobsLoading(state)
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  { fetchJobs }
+)(Results);
