@@ -6,7 +6,10 @@ const connectDB = require("./config/db");
 
 require("./models/User");
 require("./models/Job");
-require("./cronJob/cronScrap");
+
+// Cron jobs
+// require("./cronJob/cronScrap");
+require("./cronJob/cronEmail");
 
 app.use(cors());
 

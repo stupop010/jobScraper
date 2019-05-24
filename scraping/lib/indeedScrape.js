@@ -17,7 +17,7 @@ async function getHTML(url) {
   return html;
 }
 
-async function scrape(jobTitle = "web developer", location = "taunton") {
+async function scrape(jobTitle, location) {
   let startJob = 0;
   let jobLists = [];
   let amountOfJobs;
@@ -73,8 +73,8 @@ async function scrape(jobTitle = "web developer", location = "taunton") {
   return jobLists;
 }
 
-async function scrapeData(search) {
-  const { location, jobTitle } = search;
+async function scrapeData({ location, jobTitle }) {
+  // const { location, jobTitle } = search;
   const data = await scrape(jobTitle, location);
   data.map(async item => {
     const existingJob = await Job.findOne({ jobId: item.jobId });
@@ -105,6 +105,7 @@ async function scrapeData(search) {
 async function indeedScrape(id = "5ce47a148f424013b34ffe5d") {
   const search = await searchs(id);
   await scrapeData(search);
+  console.log("scrape done");
   return "Scrape done";
 }
 

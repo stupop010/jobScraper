@@ -3,7 +3,7 @@ const Router = express.Router();
 const mongoose = require("mongoose");
 const { check, validationResult } = require("express-validator/check");
 
-const updateDate = require("../../scraping/lib/updateData");
+const { updateDate } = require("../../scraping/lib/updateData");
 const indeedScrape = require("../../scraping/lib/indeedScrape");
 
 const User = mongoose.model("user");
@@ -47,7 +47,6 @@ Router.put(
 
     try {
       // If new search, all the previous job will be delete
-      // that owns by user
       await Job.deleteMany();
       // Update the search on user
       await User.findOneAndUpdate("5ce47a148f424013b34ffe5d", {
