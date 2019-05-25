@@ -1,4 +1,4 @@
-import { FETCH_USER } from "../constants/actionTypes";
+import { FETCH_USER, LOGIN_ATTEMPT } from "../constants/actionTypes";
 
 const initialState = {
   isAuthenticated: false,
@@ -8,6 +8,7 @@ const initialState = {
 
 export default function(state = initialState, action) {
   switch (action.type) {
+    case LOGIN_ATTEMPT:
     case FETCH_USER:
       return {
         ...state,

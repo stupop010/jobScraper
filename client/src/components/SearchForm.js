@@ -1,8 +1,8 @@
-import React from "react";
+import React, { Fragment } from "react";
 
 const SearchForm = () => {
   return (
-    <div>
+    <Fragment>
       <form className="search-form">
         <div>
           <label>Location:</label>
@@ -18,7 +18,7 @@ const SearchForm = () => {
           </button>
         </div>
       </form>
-    </div>
+    </Fragment>
   );
 };
 
