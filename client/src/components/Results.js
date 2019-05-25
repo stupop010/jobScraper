@@ -15,6 +15,7 @@ const useSearches = ({ fetchJobs }) => {
 
 const Results = props => {
   useSearches(props);
+  console.log(props);
   return (
     <div>
       <SearchForm />
