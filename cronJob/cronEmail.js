@@ -3,7 +3,7 @@ const { emailData } = require("../scraping/lib/updateData");
 const { sendNewJobs } = require("../emails/account");
 
 new CronJob(
-  "*/2 * * * *",
+  "*/60 * * * *",
   async () => {
     console.log("email");
     const data = await emailData();
