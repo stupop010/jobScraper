@@ -17,14 +17,12 @@ async function updateDate(jobs) {
 
 async function emailData() {
   const jobs = await Jobs.find();
-  console.log(jobs);
   const filterJobs = jobs
     .filter(item => item.date !== "")
     .filter(item => item.date.split(" ")[Number(0)] <= 6)
     .filter(item => item.date.split(" ")[1] !== "months")
     .filter(item => item.date.split(" ")[1] !== "days")
     .filter(item => item.date.split(" ")[1] !== "day");
-  console.log(filterJobs);
   return filterJobs;
 }
 module.exports = { updateDate, emailData };

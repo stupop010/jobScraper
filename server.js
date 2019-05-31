@@ -19,6 +19,7 @@ app.use(cors());
 app.use(express.json({ extended: false }));
 
 app.use("/api/auth", require("./routes/api/auth"));
+app.use("/api/user", require("./routes/api/user"));
 app.use("/api/jobs", require("./routes/api/jobs"));
 
 if (process.env.NODE_ENV === "production") {

@@ -9,7 +9,7 @@ const indeedScrape = require("../../scraping/lib/indeedScrape");
 const User = mongoose.model("user");
 const Job = mongoose.model("job");
 
-// @route  Get /api
+// @route  Get /api/jobs
 // @desc   Get all jobs
 // @access Private
 Router.get("/", async (req, res) => {
@@ -24,7 +24,7 @@ Router.get("/", async (req, res) => {
   }
 });
 
-// @route  Put /api
+// @route  Put /api/jobs
 // @desc   Update the searchs in user, request a new search
 // @access Private
 Router.put(

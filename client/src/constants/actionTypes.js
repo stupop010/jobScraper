@@ -1,6 +1,11 @@
 // Auth
 export const FETCHING_USER = "FETCHING_USER";
 export const LOGIN_ATTEMPT = "LOGIN_ATTEMPT";
+export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
+export const USER_LOGGED = "USER_LOGGED";
+export const REGISTER_USER_ATTEMPT = "REGISTER_USER_ATTEMPT";
+export const REGISTER_SUCCESS = "REGISTER_SUCCESS";
+export const LOGOUT = "LOGOUT";
 
 // Jobs
 export const FETCH_JOB = "FETCH_JOB";

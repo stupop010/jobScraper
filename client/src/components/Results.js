@@ -7,15 +7,17 @@ import ResultRender from "./ResultRender";
 import SearchForm from "./SearchForm";
 import Loading from "./Loading";
 
-const useSearches = ({ fetchJobs }) => {
+// const useSearches = ({ fetchJobs }) => {
+//   useEffect(() => {
+//     fetchJobs();
+//   }, [fetchJobs]);
+// };
+
+const Results = props => {
+  const fetchJobs = props.fetchJobs;
   useEffect(() => {
     fetchJobs();
   }, [fetchJobs]);
-};
-
-const Results = props => {
-  useSearches(props);
-  console.log(props);
   return (
     <div>
       <SearchForm />

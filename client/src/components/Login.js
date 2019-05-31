@@ -1,18 +1,11 @@
 import React, { useState } from "react";
+import { Link, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import { loginUser } from "../action/auth";
 
-const Login = ({ loginUser }) => {
+const Login = ({ loginUser, isAuthenticated }) => {
   const [emailChange, setEmailChange] = useState("");
   const [passwordChange, setPasswordChange] = useState("");
-
-  const onChangeEmail = e => {
-    setEmailChange(e.target.value);
-  };
-
-  const onChangePassword = e => {
-    setPasswordChange(e.target.value);
-  };
 
   const formSubmit = e => {
     e.preventDefault();
@@ -23,6 +16,8 @@ const Login = ({ loginUser }) => {
     loginUser(data);
   };
 
+  if (isAuthenticated) return <Redirect to="/" />;
+
   return (
     <div className="tran">
       <form className="form" onSubmit={formSubmit}>
@@ -32,7 +27,7 @@ const Login = ({ loginUser }) => {
             type="email"
             name="email"
             placeholder="Email..."
-            onChange={onChangeEmail}
+            onChange={e => setEmailChange(e.target.value)}
             value={emailChange}
           />
         </div>
@@ -41,22 +36,31 @@ const Login = ({ loginUser }) => {
             type="password"
             name="password"
             placeholder="Password..."
-            onChange={onChangePassword}
+            onChange={e => setPasswordChange(e.target.value)}
             value={passwordChange}
           />
         </div>
-        <div className="form-group mt">
-          <button type="submit">Sumbit</button>
-          <button type="button" className="form-button">
-            Register
+        <div className="form-group break">
+          <button type="submit" className="form-button">
+            Sumbit
           </button>
+        </div>
+        <div className="register-section">
+          Don't have account?
+          <Link to="register" className="register-link">
+            Register
+          </Link>
         </div>
       </form>
     </div>
   );
 };
 
+const mapStateToProps = state => {
+  return { isAuthenticated: state.auth.isAuthenticated };
+};
+
 export default connect(
-  null,
+  mapStateToProps,
   { loginUser }
 )(Login);

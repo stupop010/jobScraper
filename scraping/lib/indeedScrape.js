@@ -18,6 +18,7 @@ async function getHTML(url) {
 }
 
 async function scrape(jobTitle, location) {
+  console.log("in scrape");
   let startJob = 0;
   let jobLists = [];
   let amountOfJobs;
@@ -74,7 +75,6 @@ async function scrape(jobTitle, location) {
 }
 
 async function scrapeData({ location, jobTitle }) {
-  // const { location, jobTitle } = search;
   const data = await scrape(jobTitle, location);
   data.map(async item => {
     const existingJob = await Job.findOne({ jobId: item.jobId });
@@ -92,7 +92,6 @@ async function scrapeData({ location, jobTitle }) {
         date: item.date,
         summary: item.summary
       });
-
       await job.save();
     } catch (error) {
       console.error(error);
@@ -105,7 +104,6 @@ async function scrapeData({ location, jobTitle }) {
 async function indeedScrape(id = "5ce47a148f424013b34ffe5d") {
   const search = await searchs(id);
   await scrapeData(search);
-  console.log("scrape done");
   return "Scrape done";
 }
 

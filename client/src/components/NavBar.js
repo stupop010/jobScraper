@@ -1,24 +1,30 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+import { logout } from "../action/auth";
 
-const NavBar = () => {
+const NavBar = ({ isAuthenticated, logout }) => {
+  console.log(isAuthenticated);
+
   return (
     <div className="main-nav">
       <ul>
         <li>
           <Link to="/">Home</Link>
         </li>
-        {auth()}
+        {auth(isAuthenticated, logout)}
       </ul>
     </div>
   );
 };
 
-const auth = isAuth => {
+const auth = (isAuthenticated, logout) => {
   return (
     <li>
-      {isAuth ? (
-        <Link to="/logout">LogOut</Link>
+      {isAuthenticated ? (
+        <a onClick={logout} href="/login">
+          Logout
+        </a>
       ) : (
         <Link to="/login">Login</Link>
       )}
@@ -26,4 +32,11 @@ const auth = isAuth => {
   );
 };
 
-export default NavBar;
+const mapStateToProps = state => {
+  return { isAuthenticated: state.auth.isAuthenticated };
+};
+
+export default connect(
+  mapStateToProps,
+  { logout }
+)(NavBar);
