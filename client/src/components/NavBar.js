@@ -10,7 +10,9 @@ const NavBar = ({ isAuthenticated, logout }) => {
     <div className="main-nav">
       <ul>
         <li>
-          <Link to="/">Home</Link>
+          <Link className="main-nav-link" to="/">
+            Home
+          </Link>
         </li>
         {auth(isAuthenticated, logout)}
       </ul>
@@ -26,7 +28,9 @@ const auth = (isAuthenticated, logout) => {
           Logout
         </a>
       ) : (
-        <Link to="/login">Login</Link>
+        <Link className="main-nav-link" to="/login">
+          Login
+        </Link>
       )}
     </li>
   );

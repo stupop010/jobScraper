@@ -10,15 +10,12 @@ import {
 } from "../constants/actionTypes";
 import setAuthHeader from "../utils/setAuthHeader";
 
-import history from "../history";
-
 export const fetchUser = () => async dispatch => {
   if (localStorage.token) {
     setAuthHeader(localStorage.token);
   }
   dispatch({ type: FETCHING_USER });
   try {
-    console.log("autth");
     const res = await axios.get("api/auth");
     dispatch({ type: USER_LOGGED, payload: res.data });
   } catch (error) {

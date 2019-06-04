@@ -10,3 +10,4 @@ export const LOGOUT = "LOGOUT";
 // Jobs
 export const FETCH_JOB = "FETCH_JOB";
 export const FETCH_JOB_SUCCESS = "FETCH_JOB_SUCCESS";
+export const ADDING_SEARCH = "ADDING_SEARCH";

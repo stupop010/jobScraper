@@ -1,17 +1,11 @@
-import React, { useEffect, useState, useReducer } from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
 
-import { getJobs, jobsLoading } from "../selectors/job";
+import { getJobs, jobsLoading } from "../selectors/jobSelector";
 import { fetchJobs } from "../action/jobs";
 import ResultRender from "./ResultRender";
 import SearchForm from "./SearchForm";
 import Loading from "./Loading";
-
-// const useSearches = ({ fetchJobs }) => {
-//   useEffect(() => {
-//     fetchJobs();
-//   }, [fetchJobs]);
-// };
 
 const Results = props => {
   const fetchJobs = props.fetchJobs;

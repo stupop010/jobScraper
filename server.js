@@ -12,7 +12,6 @@ require("./models/Job");
 
 // Cron jobs
 require("./cronJob/cronScrap");
-require("./cronJob/cronEmail");
 
 app.use(cors());
 

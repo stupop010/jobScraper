@@ -1,12 +1,18 @@
 import React, { Fragment, useState } from "react";
+import { connect } from "react-redux";
+import { addJobSearch } from "../action/jobs";
 
-const SearchForm = () => {
+const SearchForm = ({ addJobSearch }) => {
   const [location, setLoction] = useState("");
   const [jobTitle, setJobTitle] = useState("");
 
   const onSubmit = e => {
     e.preventDefault();
-    console.log(location, jobTitle);
+    const data = {
+      location,
+      jobTitle
+    };
+    addJobSearch(data);
   };
 
   return (
@@ -40,4 +46,7 @@ const SearchForm = () => {
   );
 };
 
-export default SearchForm;
+export default connect(
+  null,
+  { addJobSearch }
+)(SearchForm);

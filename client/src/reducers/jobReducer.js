@@ -1,4 +1,8 @@
-import { FETCH_JOB, FETCH_JOB_SUCCESS } from "../constants/actionTypes";
+import {
+  FETCH_JOB,
+  FETCH_JOB_SUCCESS,
+  ADDING_SEARCH
+} from "../constants/actionTypes";
 
 export const initialState = {
   items: [],
@@ -14,6 +18,7 @@ export const jobReducer = (state = initialState, action) => {
         isLoading: false
       };
     case FETCH_JOB:
+    case ADDING_SEARCH:
       return {
         ...state,
         isLoading: true

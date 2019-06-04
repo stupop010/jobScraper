@@ -5,7 +5,7 @@ const { check, validationResult } = require("express-validator/check");
 
 const { updateDate } = require("../../scraping/lib/updateData");
 const indeedScrape = require("../../scraping/lib/indeedScrape");
-
+const auth = require("../../middleware/auth");
 const User = mongoose.model("user");
 const Job = mongoose.model("job");
 
@@ -37,28 +37,34 @@ Router.put(
       .not()
       .isEmpty()
   ],
+  auth,
   async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(422).json({ errors: errors.array() });
     }
-
     const { location, jobTitle } = req.body;
 
     try {
       // If new search, all the previous job will be delete
       await Job.deleteMany();
       // Update the search on user
-      await User.findOneAndUpdate("5ce47a148f424013b34ffe5d", {
-        $set: {
-          searchs: {
-            location,
-            jobTitle
+
+      const user = await User.findOneAndUpdate(
+        { _id: req.user.id },
+        {
+          $set: {
+            searchs: {
+              location,
+              jobTitle
+            }
           }
         }
-      });
+      );
+
+      console.log(user, "user");
       // Request new search with new search fields
-      await indeedScrape("5ce47a148f424013b34ffe5d");
+      await indeedScrape(req.user.id);
       res.json({ message: "Search is updated" });
     } catch (error) {
       console.error(error);
@@ -66,4 +72,24 @@ Router.put(
     }
   }
 );
+
+// @route  Get /api/jobs/searchs
+// @desc   Get search fields for user
+// @access Private
+Router.get("/searchs", auth, async (req, res) => {
+  try {
+    const user = await User.findById(req.user.id);
+    console.log(user);
+    res.send("h");
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+// @route  Post /api/jobs/searchs
+// @desc   Post search fields to user model
+// @access Private
+Router.post("/searchs", auth, async (req, res) => {
+  console.log(req.body);
+});
 module.exports = Router;

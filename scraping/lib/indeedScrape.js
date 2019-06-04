@@ -1,12 +1,12 @@
 const axios = require("axios");
 const cheerio = require("cheerio");
 const mongoose = require("mongoose");
-
+const removingDuplicates = require("../../scraping/lib/removingDuplicates");
 const Job = mongoose.model("job");
 const User = mongoose.model("user");
 
 // Getting the search fields
-async function searchs(id) {
+async function getSearchsFields(id) {
   const user = await User.findById(id);
   return user.searchs;
 }
@@ -101,9 +101,16 @@ async function scrapeData({ location, jobTitle }) {
   return data;
 }
 
-async function indeedScrape(id = "5ce47a148f424013b34ffe5d") {
-  const search = await searchs(id);
+async function indeedScrape(id) {
+  // Get search querys from database
+  console.log(id);
+  const search = await getSearchsFields(id);
   await scrapeData(search);
+
+  // remove any job duplicates
+  console.log("removing duplicates");
+  removingDuplicates();
+  console.log("done");
   return "Scrape done";
 }
 

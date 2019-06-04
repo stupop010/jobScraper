@@ -1,27 +1,28 @@
 import React, { Fragment, useEffect } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { connect } from "react-redux";
+
 import { fetchUser } from "./action/auth";
 import Navbar from "./components/NavBar";
 import Login from "./components/Login";
 import Register from "./components/Resgister";
 import Results from "./components/Results";
-import "./App.css";
 import setAuthHeader from "./utils/setAuthHeader";
-import history from "./history";
+import { isAuthenticated } from "./selectors/authSelector";
+
+import "./App.css";
 
 if (localStorage.token) {
   setAuthHeader(localStorage.token);
 }
 
 const App = ({ fetchUser, isAuthenticated }) => {
-  console.log(isAuthenticated);
   useEffect(() => {
     fetchUser();
-  }, []);
+  }, [fetchUser]);
 
   return (
-    <Router history={history}>
+    <Router>
       <Fragment>
         <Navbar />
         <div className="container">
@@ -42,7 +43,7 @@ const App = ({ fetchUser, isAuthenticated }) => {
 };
 
 const mapStateToProps = state => {
-  return { isAuthenticated: state.auth.isAuthenticated };
+  return { isAuthenticated: isAuthenticated(state) };
 };
 export default connect(
   mapStateToProps,
