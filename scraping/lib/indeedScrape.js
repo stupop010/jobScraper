@@ -103,14 +103,11 @@ async function scrapeData({ location, jobTitle }) {
 
 async function indeedScrape(id) {
   // Get search querys from database
-  console.log(id);
   const search = await getSearchsFields(id);
   await scrapeData(search);
 
   // remove any job duplicates
-  console.log("removing duplicates");
-  removingDuplicates();
-  console.log("done");
+  await removingDuplicates();
   return "Scrape done";
 }
 
