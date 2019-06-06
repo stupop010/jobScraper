@@ -3,7 +3,9 @@ import {
   FETCH_JOB,
   FETCH_JOB_SUCCESS,
   ADDING_SEARCH,
-  ADDING_SEARCH_SUCCESS
+  ADDING_SEARCH_SUCCESS,
+  FETCHING_SEARCHS,
+  FETCH_SEARCH_SUCCESS
 } from "../constants/actionTypes";
 
 export const fetchJobs = () => async dispatch => {
@@ -21,6 +23,16 @@ export const addJobSearch = data => async dispatch => {
   try {
     const res = await axios.put("/api/jobs", data, config);
     dispatch({ type: ADDING_SEARCH_SUCCESS, payload: res.data });
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const fetchSearchs = () => async dispatch => {
+  dispatch({ type: FETCHING_SEARCHS });
+  try {
+    const res = await axios.get("/api/jobs/searchs");
+    dispatch({ type: FETCH_SEARCH_SUCCESS, payload: res.data });
   } catch (error) {
     console.error(error);
   }

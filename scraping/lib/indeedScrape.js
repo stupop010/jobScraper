@@ -101,7 +101,7 @@ async function scrapeData({ location, jobTitle }) {
   return data;
 }
 
-async function indeedScrape(id) {
+async function indeedScrape(id = "5cf5350271dea36d72638265") {
   // Get search querys from database
   const search = await getSearchsFields(id);
   await scrapeData(search);

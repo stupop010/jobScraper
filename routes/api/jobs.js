@@ -62,7 +62,6 @@ Router.put(
         }
       );
 
-      console.log(user, "user");
       // Request new search with new search fields
       await indeedScrape(req.user.id);
       res.json({ message: "Search is updated" });
@@ -79,17 +78,10 @@ Router.put(
 Router.get("/searchs", auth, async (req, res) => {
   try {
     const user = await User.findById(req.user.id);
-    console.log(user);
-    res.send("h");
+    res.json(user.searchs);
   } catch (error) {
     console.log(error);
   }
 });
 
-// @route  Post /api/jobs/searchs
-// @desc   Post search fields to user model
-// @access Private
-Router.post("/searchs", auth, async (req, res) => {
-  console.log(req.body);
-});
 module.exports = Router;

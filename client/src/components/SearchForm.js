@@ -1,10 +1,22 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useState, useEffect } from "react";
 import { connect } from "react-redux";
-import { addJobSearch } from "../action/jobs";
+import { addJobSearch, fetchSearchs } from "../action/jobs";
+import { getSearchs } from "../selectors/jobSelector";
 
-const SearchForm = ({ addJobSearch }) => {
+const SearchForm = ({ addJobSearch, searchs, fetchSearchs }) => {
   const [location, setLoction] = useState("");
   const [jobTitle, setJobTitle] = useState("");
+  const [locationSearch, setLocationSearch] = useState("");
+  const [jobTitleSearch, setJobTitleSearch] = useState("");
+
+  useEffect(() => {
+    setJobTitleSearch(searchs.jobTitle);
+    setLocationSearch(searchs.location);
+  }, [searchs.location, searchs.jobTitle]);
+
+  useEffect(() => {
+    fetchSearchs();
+  }, [fetchSearchs]);
 
   const onSubmit = e => {
     e.preventDefault();
@@ -24,6 +36,7 @@ const SearchForm = ({ addJobSearch }) => {
             type="text"
             name="location"
             value={location}
+            placeholder={locationSearch}
             onChange={e => setLoction(e.target.value)}
           />
         </div>
@@ -33,6 +46,7 @@ const SearchForm = ({ addJobSearch }) => {
             type="text"
             name="jobTitle"
             value={jobTitle}
+            placeholder={jobTitleSearch}
             onChange={e => setJobTitle(e.target.value)}
           />
         </div>
@@ -46,7 +60,13 @@ const SearchForm = ({ addJobSearch }) => {
   );
 };
 
+const mapStateToProps = state => {
+  return {
+    searchs: getSearchs(state)
+  };
+};
+
 export default connect(
-  null,
-  { addJobSearch }
+  mapStateToProps,
+  { addJobSearch, fetchSearchs }
 )(SearchForm);

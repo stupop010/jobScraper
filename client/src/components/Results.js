@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { addJobSearch } from "../action/jobs";
 import { connect } from "react-redux";
 
 import {
@@ -11,37 +12,35 @@ import ResultRender from "./ResultRender";
 import SearchForm from "./SearchForm";
 import Loading from "./Loading";
 
-const Results = props => {
+const Results = ({ fetchJobs, shouldFetchData, job, loading }) => {
   const [ifEmpty, setIfEmpty] = useState(false);
-  const fetchJobs = props.fetchJobs;
 
   useEffect(() => {
     fetchJobs();
   }, [fetchJobs]);
 
   useEffect(() => {
-    if (props.shouldFetchData) {
+    if (shouldFetchData) {
       fetchJobs();
     }
-  }, [props.shouldFetchData]);
+  }, [shouldFetchData]);
 
   useEffect(() => {
-    console.log("me");
     if (!Array.isArray(fetchJobs) || !fetchJobs.length) {
       setIfEmpty(true);
     } else {
       setIfEmpty(false);
     }
-  }, [props.job]);
+  }, [job]);
 
   return (
     <div>
       <SearchForm />
       {ifEmpty ? null : <h1>No jobs found! Please search.</h1>}
-      {props.loading ? (
+      {loading ? (
         <Loading />
       ) : (
-        props.job.map(item => {
+        job.map(item => {
           return <ResultRender item={item} key={item.jobId} />;
         })
       )}
@@ -59,5 +58,5 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  { fetchJobs }
+  { fetchJobs, addJobSearch }
 )(Results);
