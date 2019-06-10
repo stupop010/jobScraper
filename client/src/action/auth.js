@@ -11,6 +11,7 @@ import {
 import setAuthHeader from "../utils/setAuthHeader";
 
 export const fetchUser = () => async dispatch => {
+  console.log(localStorage);
   if (localStorage.token) {
     setAuthHeader(localStorage.token);
   }

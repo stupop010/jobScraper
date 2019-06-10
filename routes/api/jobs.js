@@ -64,7 +64,8 @@ Router.put(
 
       // Request new search with new search fields
       await indeedScrape(req.user.id);
-      res.json({ message: "Search is updated" });
+      console.log(user.searchs);
+      res.json(user.search);
     } catch (error) {
       console.error(error);
       return res.status(500).send("Server Error");

@@ -21,7 +21,8 @@ export const jobReducer = (state = initialState, action) => {
       return {
         ...state,
         items: action.payload,
-        isLoading: false
+        isLoading: false,
+        shouldFetchData: false
       };
     case FETCH_SEARCH_SUCCESS:
       return {

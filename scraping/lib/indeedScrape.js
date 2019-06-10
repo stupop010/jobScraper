@@ -8,6 +8,7 @@ const User = mongoose.model("user");
 // Getting the search fields
 async function getSearchsFields(id) {
   const user = await User.findById(id);
+  console.log(user, "get user searchs");
   return user.searchs;
 }
 
@@ -107,7 +108,9 @@ async function indeedScrape(id = "5cf5350271dea36d72638265") {
   await scrapeData(search);
 
   // remove any job duplicates
-  await removingDuplicates();
+  const removing = await removingDuplicates();
+  console.log(removing, "rem");
+
   return "Scrape done";
 }
 
