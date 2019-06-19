@@ -64,7 +64,6 @@ Router.put(
 
       // Request new search with new search fields
       await indeedScrape(req.user.id);
-      console.log(user.searchs);
       res.json(user.search);
     } catch (error) {
       console.error(error);

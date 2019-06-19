@@ -4,8 +4,6 @@ import { connect } from "react-redux";
 import { logout } from "../action/auth";
 
 const NavBar = ({ isAuthenticated, logout }) => {
-  console.log(isAuthenticated);
-
   return (
     <div className="main-nav">
       <ul>

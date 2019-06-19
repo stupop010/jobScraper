@@ -11,7 +11,6 @@ import {
 import setAuthHeader from "../utils/setAuthHeader";
 
 export const fetchUser = () => async dispatch => {
-  console.log(localStorage);
   if (localStorage.token) {
     setAuthHeader(localStorage.token);
   }
@@ -46,7 +45,6 @@ export const registerUser = data => async dispatch => {
 };
 
 export const logout = () => dispatch => {
-  console.log("loging out");
   dispatch({ type: LOGOUT });
 };
 
