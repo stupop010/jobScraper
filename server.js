@@ -11,7 +11,7 @@ require("./models/User");
 require("./models/Job");
 
 // Cron jobs
-require("./cronJob/cronScrap");
+// require("./cronJob/cronScrap");
 
 app.use(cors());
 
